@@ -14,8 +14,22 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo "Deploying project..."
+                echo "Deploying index.html to Apache web server..."
+                sh '''
+                  sudo cp index.html /var/www/html/index.html
+                  sudo systemctl restart apache2
+                '''
             }
         }
     }
+
+    post {
+        success {
+            echo "✅ Deployment successful! Open your server IP in a browser to see index.html"
+        }
+        failure {
+            echo "❌ Deployment failed!"
+        }
+    }
 }
+
