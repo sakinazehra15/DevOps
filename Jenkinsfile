@@ -2,12 +2,22 @@ pipeline {
     agent any
 
     stages {
+        stage('Build') {
+            steps {
+                echo "Building project..."
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Running tests..."
+            }
+        }
         stage('Deploy') {
             steps {
                 echo "Deploying index.html to Apache web server..."
                 sh '''
-                    sudo rsync -av --exclude ".git/" ${WORKSPACE}/* /var/www/html/testsite
-                    sudo systemctl restart apache2
+                  sudo rsync -av --exclude .git/ $WORKSPACE/index.html /var/www/html/
+                  sudo systemctl restart apache2
                 '''
             }
         }
