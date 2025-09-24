@@ -16,13 +16,13 @@ pipeline {
             steps {
                 echo "Deploying workspace files to Apache web server..."
                 sh '''
-                 
+
                   sudo rsync -av \
                     --exclude ".git/" \
                     --exclude "Jenkinsfile" \
                     $WORKSPACE/ /var/www/html/
 
-           
+
                   sudo systemctl restart apache2
                 '''
             }
@@ -38,4 +38,6 @@ pipeline {
         }
     }
 }
+
+
 
