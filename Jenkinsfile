@@ -1,3 +1,4 @@
+ls /var/www/html
 pipeline {
     agent any
 
