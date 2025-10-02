@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        USERNAME ="shaks	"
+        USERNAME ="shaks"
         SERVER_IP = "192.168.56.105"
         DEPLOY_DIR = "/var/www/html"
     }
@@ -24,10 +24,7 @@ pipeline {
             steps {
                 echo "Deploying workspace files to Apache web server..."
                 sh '''
-                  rsync -av --delete \
-                    --exclude ".git/" \
-                    --exclude "Jenkinsfile" \
-                    $WORKSPACE/ ${USERNAME}@${SERVER_IP}:${DEPLOY_DIR}/
+                  rsync -av --delete --exclude ".git/" --exclude "Jenkinsfile" $WORKSPACE/ ${USERNAME}@${SERVER_IP}:${DEPLOY_DIR}/
 
                   ssh ${USERNAME}@${SERVER_IP} "sudo systemctl restart apache2"
                 '''
